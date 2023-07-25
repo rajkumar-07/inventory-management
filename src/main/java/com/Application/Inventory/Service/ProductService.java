@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 import com.Application.Inventory.Entity.ProductEntity;
 import com.Application.Inventory.Repositories.ProductRepository;
 import com.Application.Inventory.Vo.ProductVo;
+import com.Application.Inventory.Vo.UpdateVo;
 
 @Service
 public class ProductService {
-
+    @Autowired
     private final ProductRepository productRepository;
 
     @Autowired
@@ -34,6 +35,25 @@ public class ProductService {
             }
         } catch (Exception e) {
             System.out.println("Product Add fail" + e);
+        }
+        return "fail";
+    }
+
+    public String updateProduct(UpdateVo updateVo) {
+        try {
+            if (Objects.nonNull(updateVo) && updateVo.isAdmin()) {
+                ProductEntity productEntity = productRepository.findByProductId(updateVo.getProductId());
+                productEntity.setDescription(updateVo.getDescription());
+                productEntity.setName(updateVo.getName());
+                productEntity.setPrice(updateVo.getPrice());
+                productEntity.setQuantity(updateVo.getQuantity());
+                productRepository.save(productEntity);
+                return "Success";
+            } else {
+                return "You are not authorized";
+            }
+        } catch (Exception e) {
+            System.out.println("Product Update Failed :" + e);
         }
         return "fail";
     }
