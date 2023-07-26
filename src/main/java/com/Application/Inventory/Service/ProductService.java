@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.Application.Inventory.Entity.ProductEntity;
 import com.Application.Inventory.Repositories.ProductRepository;
 import com.Application.Inventory.Vo.ProductVo;
+import com.Application.Inventory.Vo.ResponseVo;
 import com.Application.Inventory.Vo.UpdateVo;
 
 @Service
@@ -60,11 +61,30 @@ public class ProductService {
 
     public String deleteProduct(Long productId) {
         try {
-            productRepository.deleteById(productId);
-            return "Deleted Successully";
+            if (productRepository.existsById(productId)) {
+                productRepository.deleteById(productId);
+                return "Deleted Successully";
+            } else {
+                return "Product does not exists";
+            }
         } catch (Exception e) {
             System.out.println("Product Delete Failed " + e);
+            return "Product Delete failed";
         }
-        return "Product Delete failed";
+    }
+
+    public ResponseVo getProduct(Long productId) {
+        if (productRepository.existsById(productId)) {
+            ProductEntity productEntity = productRepository.findByProductId(productId);
+            return ResponseVo.builder()
+                    .productId(productEntity.getProductId())
+                    .name(productEntity.getName())
+                    .description(productEntity.getDescription())
+                    .quantity(productEntity.getQuantity())
+                    .price(productEntity.getPrice())
+                    .build();
+        } else {
+            return null;
+        }
     }
 }
