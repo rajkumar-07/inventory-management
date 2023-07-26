@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.Application.Inventory.Service.ProductService;
 import com.Application.Inventory.Vo.ProductVo;
+import com.Application.Inventory.Vo.ResponseVo;
 import com.Application.Inventory.Vo.UpdateVo;
 
 @RestController
@@ -25,8 +26,8 @@ public class ProductController {
 	}
 
 	@GetMapping("/get-products")
-	public String getProducts() {
-		return "";
+	public ResponseVo getProducts(@RequestParam Long productId) {
+		return productService.getProduct(productId);
 	}
 
 	@PostMapping("/update-product")
