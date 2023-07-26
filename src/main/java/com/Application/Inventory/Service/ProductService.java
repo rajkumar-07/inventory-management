@@ -13,7 +13,7 @@ import com.Application.Inventory.Vo.UpdateVo;
 
 @Service
 public class ProductService {
-    @Autowired
+
     private final ProductRepository productRepository;
 
     @Autowired
@@ -56,5 +56,15 @@ public class ProductService {
             System.out.println("Product Update Failed :" + e);
         }
         return "fail";
+    }
+
+    public String deleteProduct(Long productId) {
+        try {
+            productRepository.deleteById(productId);
+            return "Deleted Successully";
+        } catch (Exception e) {
+            System.out.println("Product Delete Failed " + e);
+        }
+        return "Product Delete failed";
     }
 }
