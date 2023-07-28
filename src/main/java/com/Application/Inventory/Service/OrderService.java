@@ -4,17 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Application.Inventory.Entity.OrderEntity;
+import com.Application.Inventory.Repositories.OrderRepository;
 import com.Application.Inventory.Repositories.ProductRepository;
 import com.Application.Inventory.Vo.OrderVo;
 
 @Service
 public class OrderService {
 
-    private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
 
     @Autowired
-    public OrderService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    public OrderService(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
     }
 
     public String placeOrder(OrderVo orderVo) {
@@ -28,10 +29,11 @@ public class OrderService {
                     .employee_name(orderVo.getEmployee_name())
                     .employee_id(orderVo.getEmployee_id())
                     .build();
-            productRepository.save(orderEntity);
+            orderRepository.save(orderEntity);
+            return "Success";
         } catch (Exception e) {
-
+            return "Fail";
         }
-    
+
     }
 }
