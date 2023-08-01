@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.Application.Inventory.Entity.OrderEntity;
 import com.Application.Inventory.Repositories.OrderRepository;
+import com.Application.Inventory.Utils.CommonUtils;
 import com.Application.Inventory.Vo.OrderVo;
 
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,11 @@ import lombok.RequiredArgsConstructor;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final CommonUtils commonUtils;
 
     public String placeOrder(List<OrderVo> orderList) {
         try {
-            Long generatedOrderId=generateOrderId();
+            Long generatedOrderId=commonUtils.generateOrderId();
             for(OrderVo orderVo : orderList){
             OrderEntity orderEntity = OrderEntity.builder()
                     .orderId(generatedOrderId)
@@ -43,7 +45,5 @@ public class OrderService {
 
     }
 
-    private  Long generateOrderId(){
-       return orderRepository.findGreatestOrderId()+1;
-    }
+    
 }
