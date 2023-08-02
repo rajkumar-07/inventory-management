@@ -1,8 +1,5 @@
 package com.Application.Inventory.Service;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,7 @@ public class OrderService {
                     .customerMailId(orderVo.getCustomerMailId())
                     .employeeName(orderVo.getEmployeeName())
                     .employeeId(orderVo.getEmployeeId())
+                    .timestamp(commonUtils.getTimestamp())
                     .build();
             orderRepository.save(orderEntity);
             }
