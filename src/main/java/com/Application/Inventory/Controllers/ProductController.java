@@ -3,6 +3,7 @@ package com.Application.Inventory.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.Application.Inventory.Vo.ResponseVo;
 import com.Application.Inventory.Vo.UpdateVo;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class ProductController {
 	@Autowired
 	ProductService productService;
