@@ -87,4 +87,10 @@ public class ProductService {
             return null;
         }
     }
+
+    public List<ProductEntity> getData(int limit, int offset){
+        List<ProductEntity> productList = productRepository.getData(limit, offset);
+
+        return productList;
+    }
 }
