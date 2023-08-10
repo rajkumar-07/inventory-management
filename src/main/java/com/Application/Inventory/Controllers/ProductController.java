@@ -47,7 +47,7 @@ public class ProductController {
 	}
 
 	@PostMapping("/get-products")
-	public List<ProductEntity> loadProducts(@RequestParam int limit,@RequestParam int offset){	
-		return productService.getData(limit,offset);
+	public List<ProductEntity> getProducts(@RequestParam int limit,@RequestParam int pageNo){	
+		return productService.getProducts(limit,pageNo);
 	}
 }

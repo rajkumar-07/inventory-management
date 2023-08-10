@@ -88,9 +88,9 @@ public class ProductService {
         }
     }
 
-    public List<ProductEntity> getData(int limit, int offset){
-        List<ProductEntity> productList = productRepository.getData(limit, offset);
-
+    public List<ProductEntity> getProducts(int limit, int pageNo){
+        int offset=(pageNo-1)*limit;
+        List<ProductEntity> productList = productRepository.getProductsByOffset(limit, offset);
         return productList;
     }
 }

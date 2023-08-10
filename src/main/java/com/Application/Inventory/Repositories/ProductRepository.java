@@ -15,6 +15,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 
     boolean existsByProductId(Long productId);
 
-    @Query(value = "SELECT * FROM product ORDER BY id LIMIT :limit OFFSET :offset", nativeQuery = true)
-    List<ProductEntity> getData(int limit, int offset);
+    @Query(value = "SELECT * FROM product ORDER BY 1 LIMIT :limit OFFSET :offset", nativeQuery = true)
+    List<ProductEntity> getProductsByOffset(int limit, int offset);
 }
