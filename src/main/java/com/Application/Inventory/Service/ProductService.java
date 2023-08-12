@@ -26,15 +26,17 @@ public class ProductService {
         try {
             if (Objects.nonNull(productVo)) {
                 for (ProductVo product : productVo) {
-                    ProductEntity productEntity = ProductEntity.builder().name(product.getName())
-                            .description(product.getDescription()).quantity(product.getQuantity())
-                            .price(product.getPrice()).build();
+                    ProductEntity productEntity = ProductEntity.builder()
+                    .name(product.getName())
+                    .description(product.getDescription())
+                    .quantity(product.getQuantity())
+                    .price(product.getPrice()).build();
                     productRepository.save(productEntity);
                 }
-
                 return "Success";
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.out.println("Product Add fail" + e);
         }
         return "fail";
@@ -53,7 +55,8 @@ public class ProductService {
             } else {
                 return "You are not authorized";
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.out.println("Product Update Failed :" + e);
         }
         return "fail";
@@ -67,30 +70,41 @@ public class ProductService {
             } else {
                 return "Product does not exists";
             }
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             System.out.println("Product Delete Failed " + e);
             return "Product Delete failed";
         }
     }
 
     public ResponseVo getProduct(Long productId) {
-        if (productRepository.existsById(productId)) {
-            ProductEntity productEntity = productRepository.findByProductId(productId);
-            return ResponseVo.builder()
-                    .productId(productEntity.getProductId())
-                    .name(productEntity.getName())
-                    .description(productEntity.getDescription())
-                    .quantity(productEntity.getQuantity())
-                    .price(productEntity.getPrice())
-                    .build();
-        } else {
-            return null;
+        try {
+            if (productRepository.existsById(productId)) {
+                ProductEntity productEntity = productRepository.findByProductId(productId);
+                return ResponseVo.builder()
+                        .productId(productEntity.getProductId())
+                        .name(productEntity.getName())
+                        .description(productEntity.getDescription())
+                        .quantity(productEntity.getQuantity())
+                        .price(productEntity.getPrice())
+                        .build();
+            } 
+        } 
+        catch (Exception e) {
+            System.out.println("Error in getting products in getProduct method" + e);
         }
+        return null;
     }
 
-    public List<ProductEntity> getProducts(int limit, int pageNo){
-        int offset=(pageNo-1)*limit;
+    public List<ProductEntity> getProducts(int limit, int pageNo) {
+        int offset = (pageNo - 1) * limit;
+        try{
         List<ProductEntity> productList = productRepository.getProductsByOffset(limit, offset);
         return productList;
+        }
+        catch(Exception e){
+            System.out.println("Error in getting products in getProducts method"+e);
+        }
+        return null;
     }
 }
