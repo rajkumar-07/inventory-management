@@ -20,7 +20,7 @@ import com.Application.Inventory.Vo.ResponseVo;
 import com.Application.Inventory.Vo.UpdateVo;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class ProductController {
 	@Autowired
 	ProductService productService;
@@ -49,5 +49,10 @@ public class ProductController {
 	@PostMapping("/get-products")
 	public List<ProductEntity> getProducts(@RequestParam int limit,@RequestParam int pageNo){	
 		return productService.getProducts(limit,pageNo);
+	}
+
+	@GetMapping("/get-product-count")
+	public long getProductCount(){
+		return productService.getProductCount();
 	}
 }

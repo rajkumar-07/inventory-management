@@ -107,4 +107,8 @@ public class ProductService {
         }
         return null;
     }
+
+    public long getProductCount() {
+        return productRepository.count();
+    }
 }
