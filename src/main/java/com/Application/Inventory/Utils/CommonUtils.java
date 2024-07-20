@@ -14,19 +14,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class CommonUtils {
-
-    private final OrderRepository orderRepository;
-    
-
-    public  Long generateOrderId(){
-        return orderRepository.findGreatestOrderId()+1;
-     }
-
-     public Timestamp getTimestamp(){
-            Date currentDate = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String formattedDate = dateFormat.format(currentDate);
-            Timestamp timestamp = Timestamp.valueOf(formattedDate);
-        return timestamp;
+     public Timestamp getCurrentTimestamp(){
+         return new Timestamp(System.currentTimeMillis());
      }
 }

@@ -1,8 +1,12 @@
 package com.Application.Inventory.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.Application.Inventory.Entity.OrderEntity;
@@ -19,12 +23,10 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final CommonUtils commonUtils;
 
-    public String placeOrder(List<OrderVo> orderList) {
+    public ResponseEntity<Object> placeOrder(List<OrderVo> orderList) {
         try {
-            Long generatedOrderId=commonUtils.generateOrderId();
             for(OrderVo orderVo : orderList){
             OrderEntity orderEntity = OrderEntity.builder()
-                    .orderId(generatedOrderId)
                     .productId(orderVo.getProductId())
                     .quantity(orderVo.getQuantity())
                     .customerPhoneNo(orderVo.getCustomerPhoneNo())
@@ -32,13 +34,13 @@ public class OrderService {
                     .customerMailId(orderVo.getCustomerMailId())
                     .employeeName(orderVo.getEmployeeName())
                     .employeeId(orderVo.getEmployeeId())
-                    .timestamp(commonUtils.getTimestamp())
+                    .timestamp(commonUtils.getCurrentTimestamp())
                     .build();
             orderRepository.save(orderEntity);
             }
-            return "Success";
+            return ResponseEntity.status(HttpStatus.OK).body("Success");
         } catch (Exception e) {
-            return "Fail";
+            return ResponseEntity.status(HttpStatus.OK).body("Failed");
         }
 
     }

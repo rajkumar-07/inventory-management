@@ -3,6 +3,7 @@ package com.Application.Inventory.Service;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +14,10 @@ import com.Application.Inventory.Vo.ResponseVo;
 import com.Application.Inventory.Vo.UpdateVo;
 
 @Service
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ProductService {
 
     private final ProductRepository productRepository;
-
-    @Autowired
-    public ProductService(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
 
     public String addProducts(List<ProductVo> productVo) {
         try {

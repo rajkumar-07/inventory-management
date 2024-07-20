@@ -3,6 +3,7 @@ package com.Application.Inventory.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,7 @@ public class OrderController {
     OrderService orderService;
 
     @PostMapping("/place-orders")
-    public String placeOrder(@RequestBody List<OrderVo> orderVo) {
+    public ResponseEntity<Object> placeOrder(@RequestBody List<OrderVo> orderVo) {
         return orderService.placeOrder(orderVo);
     }
 }
